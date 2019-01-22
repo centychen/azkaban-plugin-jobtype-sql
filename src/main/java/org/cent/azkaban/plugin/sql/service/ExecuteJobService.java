@@ -1,4 +1,4 @@
-package org.cent.azkaban.plugin.sql.biz;
+package org.cent.azkaban.plugin.sql.service;
 
 import azkaban.utils.Props;
 import org.cent.azkaban.plugin.sql.exception.SqlJobProcessException;

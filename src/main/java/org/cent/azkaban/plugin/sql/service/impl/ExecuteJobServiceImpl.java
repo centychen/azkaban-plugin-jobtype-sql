@@ -1,9 +1,9 @@
-package org.cent.azkaban.plugin.sql.biz.impl;
+package org.cent.azkaban.plugin.sql.service.impl;
 
 import azkaban.utils.Props;
 import org.apache.log4j.Logger;
-import org.cent.azkaban.plugin.sql.biz.ExecuteJobService;
-import org.cent.azkaban.plugin.sql.config.DatabaseConfig;
+import org.cent.azkaban.plugin.sql.service.ExecuteJobService;
+import org.cent.azkaban.plugin.sql.pojo.DatabasePojo;
 import org.cent.azkaban.plugin.sql.constants.CommonConstants;
 import org.cent.azkaban.plugin.sql.constants.JobPropsKey;
 import org.cent.azkaban.plugin.sql.constants.SqlJobPropKeys;
@@ -71,9 +71,9 @@ public class ExecuteJobServiceImpl implements ExecuteJobService {
             File execSqlFile = SqlUtil.generateTempSqlFileForExecute(sql, jobProps.get(JobPropsKey.WORKING_DIR.getKey()), sqlFile.getName());
 
             //执行SQL脚本
-            DatabaseConfig databaseConfig = new DatabaseConfig(jobProps);
-            logger.info("Database URL:" + databaseConfig.getUrl());
-            logger.info("Database USER:" + databaseConfig.getUsername());
+            DatabasePojo databasePojo = new DatabasePojo(jobProps);
+            logger.info("Database URL:" + databasePojo.getUrl());
+            logger.info("Database USER:" + databasePojo.getUsername());
             logger.info("  ");
             logger.info("================= execute sql scripts ===================");
             logger.info("\r\n" + sql);
@@ -81,7 +81,7 @@ public class ExecuteJobServiceImpl implements ExecuteJobService {
             logger.info("  ");
 
             String logPath = genExecuteSqlLogPath(jobProps.get(JobPropsKey.JOB_ATTACHMENT_FILE.getKey()));
-            SqlUtil.executeSQL(execSqlFile, databaseConfig, logPath);
+            SqlUtil.executeSQL(execSqlFile, databasePojo, logPath);
 
         } catch (Exception e) {
             //获取job基本信息

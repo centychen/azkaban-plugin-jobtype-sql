@@ -3,8 +3,8 @@ package org.cent.azkaban.plugin.sql;
 import azkaban.jobExecutor.AbstractJob;
 import azkaban.utils.Props;
 import azkaban.utils.PropsUtils;
-import org.cent.azkaban.plugin.sql.biz.ExecuteJobService;
-import org.cent.azkaban.plugin.sql.biz.impl.ExecuteJobServiceImpl;
+import org.cent.azkaban.plugin.sql.service.ExecuteJobService;
+import org.cent.azkaban.plugin.sql.service.impl.ExecuteJobServiceImpl;
 import org.cent.azkaban.plugin.sql.exception.SqlJobProcessException;
 import org.apache.log4j.Logger;
 

@@ -1,6 +1,6 @@
 package org.cent.azkaban.plugin.sql.util;
 
-import org.cent.azkaban.plugin.sql.config.DatabaseConfig;
+import org.cent.azkaban.plugin.sql.pojo.DatabasePojo;
 import org.cent.azkaban.plugin.sql.constants.CommonConstants;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.SQLExec;
@@ -141,16 +141,16 @@ public enum SqlUtil {
      * 执行SQL脚本
      *
      * @param sqlFile        sql脚本文件
-     * @param databaseConfig 数据库配置
+     * @param databasePojo 数据库配置
      * @param logfile        日志文件路径
      * @throws Exception
      */
-    public static void executeSQL(File sqlFile, DatabaseConfig databaseConfig, String logfile) throws Exception {
+    public static void executeSQL(File sqlFile, DatabasePojo databasePojo, String logfile) throws Exception {
         SQLExec sqlExec = new SQLExec();
-        sqlExec.setDriver(databaseConfig.getDriver());
-        sqlExec.setUrl(databaseConfig.getUrl());
-        sqlExec.setUserid(databaseConfig.getUsername());
-        sqlExec.setPassword(databaseConfig.getPassword());
+        sqlExec.setDriver(databasePojo.getDriver());
+        sqlExec.setUrl(databasePojo.getUrl());
+        sqlExec.setUserid(databasePojo.getUsername());
+        sqlExec.setPassword(databasePojo.getPassword());
         sqlExec.setSrc(sqlFile);
         sqlExec.setPrint(true); // 设置是否输出
         sqlExec.setEncoding(CommonConstants.DEFAULT_ENCODING);

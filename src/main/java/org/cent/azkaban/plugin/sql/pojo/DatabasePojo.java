@@ -1,11 +1,9 @@
-package org.cent.azkaban.plugin.sql.config;
+package org.cent.azkaban.plugin.sql.pojo;
 
 import azkaban.utils.Props;
 import azkaban.utils.UndefinedPropertyException;
 import org.cent.azkaban.plugin.sql.constants.DatabaseTypes;
-import org.cent.azkaban.plugin.sql.constants.JobPropsKey;
 import org.cent.azkaban.plugin.sql.constants.SqlJobPropKeys;
-import org.cent.azkaban.plugin.sql.util.BlankUtil;
 
 /**
  * @author: cent
@@ -13,7 +11,7 @@ import org.cent.azkaban.plugin.sql.util.BlankUtil;
  * @date: 2019/1/22.
  * @description:
  */
-public class DatabaseConfig {
+public class DatabasePojo {
     /**
      * 数据库驱动类
      */
@@ -36,7 +34,7 @@ public class DatabaseConfig {
      *
      * @param jobProps
      */
-    public DatabaseConfig(Props jobProps) {
+    public DatabasePojo(Props jobProps) {
         DatabaseTypes type = DatabaseTypes.valueOf(jobProps.get(SqlJobPropKeys.SQL_JOB_DATABASE_TYPE.getKey()));
         String host = jobProps.getString(SqlJobPropKeys.SQL_JOB_DATABASE_HOST.getKey());
         Integer port = jobProps.getInt(SqlJobPropKeys.SQL_JOB_DATABASE_PORT.getKey());
