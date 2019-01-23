@@ -47,10 +47,100 @@ Job参数定义在Job节点内，用于配置每个Job的定义。
 sql_job.scripts|SQL脚本路径，支持绝对路径和相对路径。相对路径是指SQL文件相对project根目录（即上传至Azkaban的zip压缩包的根目录）的路径。<br>支持多个路径，多个通过英文逗号进行分隔。
 
 ## 使用说明
-**本文示例基于Azkaban Flow 2.0，Flow 1.0插件也能支持。**
+**本文示例基于Azkaban Flow 2.0，对于Flow 1.0也支持。**
 
 ### 快速开始
+本示例实现一个两个节点的工作流
+[示例Flow文件路径](job_examples/quickstart_example)
 
+- 1.创建quickstart_example文件夹，在这个文件夹中创建`quickstart_example.flow`工作流文件。
+- 2.在`quickstart_example.flow`文件中添加以下flow参数，将相关配置修改为你本地的配置：
+```yaml
+config: 
+  sql_job.database.type: mysql # 支持mysql、postgresql
+  sql_job.database.driver: com.mysql.jdbc.Driver
+  sql_job.database.host: localhost
+  sql_job.database.port: 3306
+  sql_job.database.database: demo
+  sql_job.database.schema:  # postgresql建议必填
+  sql_job.database.username: root
+  sql_job.database.password: xxxxxxx
+```
+- 3.实现第1个Job：create_and_insert_job。
+    -3.1. 在quickstart_example文件夹下创建scripts文件佳，在scripts文件夹中创建一个SQL脚本文件，命名为`create_and_insert.sql`，里面通过脚本创建一个表并插入测试数据。
+    ```sql
+    create table if not exists table_a(
+      id int(10) not null,
+      name varchar(16) not null,
+      value double(20,3) not null
+    );
+    
+    insert into table_a values
+     (1,"test-1",1),
+     (2,"test-2",2),
+     (3,"test-3",3),
+     (4,"test-4",4),
+     (5,"test-5",5),
+     (6,"test-6",6),
+     (7,"test-7",7),
+     (8,"test-8",8)
+     ;
+    
+    select count(*) from table_a;
+    
+    ```
+    -3.2. `quickstart_example.flow`增加Job定义，JobType为"sql_job"。
+    ```yaml
+    config: 
+      sql_job.database.type: mysql # 支持mysql、postgresql
+      sql_job.database.driver: com.mysql.jdbc.Driver
+      sql_job.database.host: localhost
+      sql_job.database.port: 3306
+      sql_job.database.database: demo
+      sql_job.database.schema:  # postgresql建议必填
+      sql_job.database.username: root
+      sql_job.database.password: 123456
+    
+    nodes:
+      - name: create_and_insert_job
+        type: sql_job
+        config:
+          sql_job.scripts: quickstart_example/scripts/create_and_insert.sql # 脚本路径
+    ```
+- 4.实现第2个Job：create_and_insert_job。
+    -4.1. 同3.1,在scripts文件夹中创建一个SQL脚本文件，命名为`create_and_insert.sql`，里面通过脚本创建一个表并插入测试数据。
+    ```sql
+    update table_a set value = value*2;
+    
+    select count(*) from table_a;
+
+    ```
+    -4.2. `quickstart_example.flow`增加Job定义，JobType为"sql_job"。
+    ```yaml
+    config: 
+      sql_job.database.type: mysql # 支持mysql、postgresql
+      sql_job.database.driver: com.mysql.jdbc.Driver
+      sql_job.database.host: localhost
+      sql_job.database.port: 3306
+      sql_job.database.database: demo
+      sql_job.database.schema:  # postgresql建议必填
+      sql_job.database.username: root
+      sql_job.database.password: 123456
+    
+    nodes:
+      - name: create_and_insert_job
+        type: sql_job
+        config:
+          sql_job.scripts: quickstart_example/scripts/create_and_insert.sql # 脚本路径
+      - name: update_value_job
+        type: sql_job
+        dependsOn:
+        - create_and_insert_job
+        config:
+          sql_job.scripts: quickstart_example/scripts/update_value.sql # 脚本路径
+    ```
+    
+- 4.将quickstart_example打包成zip包，上传Azkaban的project中。
 
 ### 使用占位符参数
 
