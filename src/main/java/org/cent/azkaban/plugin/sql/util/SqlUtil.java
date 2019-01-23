@@ -1,9 +1,9 @@
 package org.cent.azkaban.plugin.sql.util;
 
-import org.cent.azkaban.plugin.sql.pojo.DatabasePojo;
-import org.cent.azkaban.plugin.sql.constants.CommonConstants;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.SQLExec;
+import org.cent.azkaban.plugin.sql.constants.CommonConstants;
+import org.cent.azkaban.plugin.sql.pojo.DatabasePojo;
 
 import java.io.*;
 import java.util.Map;
@@ -76,8 +76,9 @@ public enum SqlUtil {
      * @throws Exception
      */
     public static String replacePlaceHolderForSQL(String sql, Map<String, String> parameters) {
-        for (String placeHolder : parameters.keySet()) {
-            sql = sql.replaceAll(placeHolder, parameters.get(placeHolder));
+        for (String key : parameters.keySet()) {
+            String placeHolder = String.format("\\$\\{%s\\%s\\}", CommonConstants.CUSTOM_PREFIX, key);
+            sql = sql.replaceAll(placeHolder, parameters.get(key));
         }
         return sql;
     }
