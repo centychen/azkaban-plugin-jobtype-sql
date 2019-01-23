@@ -46,9 +46,6 @@ public class SqlJob extends AbstractJob {
     @Override
     public void run() throws Exception {
 
-        getLog().info("[sql_job]sysProps:" + sysProps.toString());
-        getLog().info("[sql_job]jobProps:" + jobProps.toString());
-
         //转化任务参数键值对
         try {
             this.resolveProps();
