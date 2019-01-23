@@ -1,5 +1,5 @@
 group 'org.cent'
-version '1.0.0.RELEASE'
+version '1.0.1.RELEASE'
 
 repositories {
     mavenCentral()
@@ -29,8 +29,10 @@ ext {
 distributions {
     main {
         contents {
-            from 'src/main/resources'
-            into('lib') {
+            into('sql_job') {
+                from 'src/main/resources'
+            }
+            into('sql_job/lib') {
                 from jar
                 from {
                     configurations.runtime.findAll {

@@ -52,4 +52,9 @@ public enum CommonConstants {
      * 脚本文件分隔符
      */
     public static final String SCRIPT_SPLIT_SYMBOL = ",";
+
+    /**
+     * 文件路径分隔符
+     */
+    public static final String PATH_SPLIT_SYMBOL = "/";
 }

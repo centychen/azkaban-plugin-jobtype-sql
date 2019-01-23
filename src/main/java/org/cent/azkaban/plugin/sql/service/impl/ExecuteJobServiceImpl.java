@@ -10,12 +10,15 @@ import org.cent.azkaban.plugin.sql.constants.SqlJobPropKeys;
 import org.cent.azkaban.plugin.sql.exception.SqlJobProcessException;
 import org.cent.azkaban.plugin.sql.util.BlankUtil;
 import org.cent.azkaban.plugin.sql.util.SqlUtil;
+import org.cent.azkaban.plugin.sql.util.StringUtils;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import static org.cent.azkaban.plugin.sql.constants.CommonConstants.PATH_SPLIT_SYMBOL;
 
 /**
  * @author: cent
@@ -44,8 +47,14 @@ public class ExecuteJobServiceImpl implements ExecuteJobService {
         }
 
         //循环执行配置SQL脚本
+        String workDir = jobProps.getString(JobPropsKey.WORKING_DIR.getKey());
         for (String sqlFilePath : sqlFilePaths) {
-            executeSingleSqlFile(jobProps, sqlFilePath);
+            String realFilePath = sqlFilePath;
+            if (!StringUtils.isAbsolutePath(realFilePath)) {
+                realFilePath = workDir + PATH_SPLIT_SYMBOL + sqlFilePath;
+            }
+
+            executeSingleSqlFile(jobProps, realFilePath);
         }
 
     }
@@ -90,7 +99,7 @@ public class ExecuteJobServiceImpl implements ExecuteJobService {
             String execId = jobProps.get(JobPropsKey.FLOW_EXECID.getKey());
 
             SqlJobProcessException e1 = new SqlJobProcessException(e.getMessage(), projectName, flowId, execId, e);
-            logger.error("[sql_job]"+e.getMessage(), e);
+            logger.error("[sql_job]" + e.getMessage(), e);
             throw e1;
         }
     }
