@@ -9,7 +9,7 @@ import org.cent.azkaban.plugin.sql.constants.SqlJobPropKeys;
  * @author: cent
  * @email: 292462859@qq.com
  * @date: 2019/1/22.
- * @description:
+ * @description: 数据库配置Bean
  */
 public class DatabasePojo {
     /**
@@ -43,7 +43,7 @@ public class DatabasePojo {
         String schema = null;
         try {
             jobProps.getString(SqlJobPropKeys.SQL_JOB_DATABASE_SCHEMA.getKey());
-        }catch (UndefinedPropertyException e){
+        } catch (UndefinedPropertyException e) {
             //nothing to do
         }
 

@@ -6,7 +6,7 @@ import java.time.ZoneId;
  * @author: cent
  * @email: 292462859@qq.com
  * @date: 2019/1/22.
- * @description:
+ * @description: 通用常量类
  */
 public enum CommonConstants {
     ;

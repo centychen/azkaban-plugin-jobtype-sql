@@ -4,19 +4,24 @@ package org.cent.azkaban.plugin.sql.constants;
  * @author: cent
  * @email: 292462859@qq.com
  * @date: 2019/1/22.
- * @description:
+ * @description: azkaban job配置参数key
  */
 public enum JobPropsKey {
+
+    TYPE("type"),
+    JVM_ARGS("jvm.args"),
+    WORKING_DIR("working.dir"),
+    PLUGIN_DIR("plugin.dir"),
+    MEMORY_CHECK("azkaban.memory.check"),
+    USER_TO_PROXY("user.to.proxy"),
+
+    JOB_ID("azkaban.job.id"),
     JOB_ATTEMPT("azkaban.job.attempt"),
     JOB_ATTACHMENT_FILE("azkaban.job.attachment.file"),
     JOB_INNODES("azkaban.job.innodes"),
     JOB_OUTNODES("azkaban.job.outnodes"),
     JOB_METADATA_FILE("azkaban.job.metadata.file"),
-
-    TYPE("type"),
-    JVM_ARGS("jvm.args"),
-    WORKING_DIR("working.dir"),
-    MEMORY_CHECK("azkaban.memory.check"),
+    JOB_LOG_FILE("azkaban.job.log.file"),
 
     FLOW_START_TIMESTAMP("azkaban.flow.start.timestamp"),
     FLOW_START_TIMEZONE("azkaban.flow.start.timezone"),

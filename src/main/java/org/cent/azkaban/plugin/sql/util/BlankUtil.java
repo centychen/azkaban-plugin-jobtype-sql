@@ -6,7 +6,7 @@ import java.util.Collection;
  * @author: cent
  * @email: 292462859@qq.com
  * @date: 2019/1/22.
- * @description:
+ * @description: 判空工具类
  */
 public enum BlankUtil {
     ;

@@ -4,7 +4,7 @@ package org.cent.azkaban.plugin.sql.exception;
  * @author: cent
  * @email: 292462859@qq.com
  * @date: 2019/1/22.
- * @description:
+ * @description: Job自定义异常类
  */
 public class SqlJobProcessException extends Exception {
     /**

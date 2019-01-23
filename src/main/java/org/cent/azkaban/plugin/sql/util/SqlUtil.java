@@ -12,7 +12,7 @@ import java.util.Map;
  * @author: cent
  * @email: 292462859@qq.com
  * @date: 2019/1/22.
- * @description:
+ * @description: SQL工具类
  */
 public enum SqlUtil {
     ;
@@ -22,22 +22,21 @@ public enum SqlUtil {
      *
      * @param path
      * @return
-     * @throws Exception
      */
-    public static File loadSqlFile(String path) throws Exception {
+    public static File loadSqlFile(String path) {
         if (BlankUtil.isEmpty(path)) {
-            throw new Exception("SQL脚本文件路径未设置！");
+            throw new RuntimeException("SQL脚本文件路径未设置！");
         }
 
         File sqlFile = new File(path);
         if (!sqlFile.exists() || sqlFile.isDirectory()) {
-            throw new Exception(String.format("SQL脚本文件路径未正确设置或者文件不存在，当前设置路径：%s！", path));
+            throw new RuntimeException(String.format("SQL脚本文件路径未正确设置或者文件不存在，当前设置路径：%s！", path));
         }
 
         String fileName = sqlFile.getName();
         String suffix = fileName.substring(fileName.lastIndexOf("."));
         if (!CommonConstants.SQL_FILE_SUFFIX.equals(suffix)) {
-            throw new Exception(String.format("%s不是正确的SQL脚本文件！", fileName));
+            throw new RuntimeException(String.format("%s不是正确的SQL脚本文件！", fileName));
         }
 
         return sqlFile;
@@ -76,7 +75,7 @@ public enum SqlUtil {
      * @return
      * @throws Exception
      */
-    public static String replacePlaceHolderForSQL(String sql, Map<String, String> parameters) throws Exception {
+    public static String replacePlaceHolderForSQL(String sql, Map<String, String> parameters) {
         for (String placeHolder : parameters.keySet()) {
             sql = sql.replaceAll(placeHolder, parameters.get(placeHolder));
         }
@@ -95,9 +94,9 @@ public enum SqlUtil {
     public static File generateTempSqlFileForExecute(String sql, String workingDir, String filename) throws Exception {
         String fileName = genTempSqlFileName(workingDir, filename);
 
-        File sqlFile = null;
-        BufferedWriter writer = null;
+        File sqlFile;
         BufferedReader reader = null;
+        BufferedWriter writer = null;
         try {
             sqlFile = new File(fileName);
             if (!sqlFile.exists()) {
@@ -107,7 +106,7 @@ public enum SqlUtil {
             writer = new BufferedWriter(new FileWriter(sqlFile));
             reader = new BufferedReader(new StringReader(sql));
             char[] buff = new char[CommonConstants.DEFAULT_BUFFER_SIZE];
-            int n = 0;
+            int n;
             while (-1 != (n = (reader.read(buff)))) {
                 writer.write(buff, 0, n);
             }
@@ -115,6 +114,9 @@ public enum SqlUtil {
         } catch (Exception e) {
             throw e;
         } finally {
+            if (reader != null) {
+                reader.close();
+            }
             if (writer != null) {
                 writer.flush();
                 writer.close();
@@ -140,25 +142,25 @@ public enum SqlUtil {
     /**
      * 执行SQL脚本
      *
-     * @param sqlFile        sql脚本文件
+     * @param sqlFile      sql脚本文件
      * @param databasePojo 数据库配置
-     * @param logfile        日志文件路径
+     * @param logfile      日志文件路径
      * @throws Exception
      */
-    public static void executeSQL(File sqlFile, DatabasePojo databasePojo, String logfile) throws Exception {
+    public static void executeSQL(File sqlFile, DatabasePojo databasePojo, String logfile) {
         SQLExec sqlExec = new SQLExec();
         sqlExec.setDriver(databasePojo.getDriver());
         sqlExec.setUrl(databasePojo.getUrl());
         sqlExec.setUserid(databasePojo.getUsername());
         sqlExec.setPassword(databasePojo.getPassword());
         sqlExec.setSrc(sqlFile);
-        sqlExec.setPrint(true); // 设置是否输出
+        // 设置是否输出
+        sqlExec.setPrint(true);
         sqlExec.setEncoding(CommonConstants.DEFAULT_ENCODING);
         sqlExec.setOutput(new File(logfile));
         sqlExec.setAppend(true);
-//        执行错误直接退出执行
-//        sqlExec.setOnerror((SQLExec.OnError) (EnumeratedAttribute.getInstance(SQLExec.OnError.class, "stop")));
-        sqlExec.setProject(new Project()); // 要指定这个属性，不然会出错
+        // 要指定这个属性，不然会出错
+        sqlExec.setProject(new Project());
         sqlExec.setAutocommit(true);
         sqlExec.execute();
     }

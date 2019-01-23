@@ -8,14 +8,15 @@ import org.apache.log4j.Logger;
  * @author: cent
  * @email: 292462859@qq.com
  * @date: 2019/1/22.
- * @description:
+ * @description: 业务服务接口
  */
 public interface ExecuteJobService {
     /**
      * 执行SQL调度任务
+     *
      * @param jobProps
      * @param logger
      * @throws SqlJobProcessException
      */
-    void executeJob(Props jobProps,Logger logger) throws SqlJobProcessException;
+    void executeJob(Props jobProps, Logger logger) throws SqlJobProcessException;
 }

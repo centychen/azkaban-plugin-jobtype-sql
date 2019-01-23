@@ -21,7 +21,7 @@ import java.util.Map;
  * @author: cent
  * @email: 292462859@qq.com
  * @date: 2019/1/22.
- * @description:
+ * @description: 业务服务实现类
  */
 public class ExecuteJobServiceImpl implements ExecuteJobService {
 
@@ -40,7 +40,7 @@ public class ExecuteJobServiceImpl implements ExecuteJobService {
         //获取sql脚本配置
         List<String> sqlFilePaths = getSqlFilesFormProps(jobProps);
         if (BlankUtil.isEmpty(sqlFilePaths)) {
-            logger.warn("任务未配置需要执行的SQL脚本文件！");
+            this.logger.warn("任务未配置需要执行的SQL脚本文件！");
         }
 
         //循环执行配置SQL脚本
@@ -72,13 +72,13 @@ public class ExecuteJobServiceImpl implements ExecuteJobService {
 
             //执行SQL脚本
             DatabasePojo databasePojo = new DatabasePojo(jobProps);
-            logger.info("Database URL:" + databasePojo.getUrl());
-            logger.info("Database USER:" + databasePojo.getUsername());
-            logger.info("  ");
-            logger.info("================= execute sql scripts ===================");
-            logger.info("\r\n" + sql);
-            logger.info("================= execute sql scripts ===================");
-            logger.info("  ");
+            logger.info("[sql_job]Database URL:" + databasePojo.getUrl());
+            logger.info("[sql_job]Database USER:" + databasePojo.getUsername());
+            logger.info("[sql_job]  ");
+            logger.info("[sql_job]================= execute sql scripts ===================");
+            logger.info("[sql_job]\r\n" + sql);
+            logger.info("[sql_job]================= execute sql scripts ===================");
+            logger.info("[sql_job]  ");
 
             String logPath = genExecuteSqlLogPath(jobProps.get(JobPropsKey.JOB_ATTACHMENT_FILE.getKey()));
             SqlUtil.executeSQL(execSqlFile, databasePojo, logPath);
@@ -90,7 +90,7 @@ public class ExecuteJobServiceImpl implements ExecuteJobService {
             String execId = jobProps.get(JobPropsKey.FLOW_EXECID.getKey());
 
             SqlJobProcessException e1 = new SqlJobProcessException(e.getMessage(), projectName, flowId, execId, e);
-            logger.error(e.getMessage(), e);
+            logger.error("[sql_job]"+e.getMessage(), e);
             throw e1;
         }
     }

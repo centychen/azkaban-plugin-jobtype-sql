@@ -6,7 +6,7 @@ import org.cent.azkaban.plugin.sql.util.BlankUtil;
  * @author: cent
  * @email: 292462859@qq.com
  * @date: 2019/1/22.
- * @description:
+ * @description: 数据库类型定义
  */
 public enum DatabaseTypes {
     mysql("com.mysql.jdbc.Driver"),

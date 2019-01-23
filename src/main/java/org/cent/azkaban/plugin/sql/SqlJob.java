@@ -3,6 +3,7 @@ package org.cent.azkaban.plugin.sql;
 import azkaban.jobExecutor.AbstractJob;
 import azkaban.utils.Props;
 import azkaban.utils.PropsUtils;
+import com.alibaba.fastjson.JSON;
 import org.cent.azkaban.plugin.sql.service.ExecuteJobService;
 import org.cent.azkaban.plugin.sql.service.impl.ExecuteJobServiceImpl;
 import org.cent.azkaban.plugin.sql.exception.SqlJobProcessException;
@@ -44,11 +45,15 @@ public class SqlJob extends AbstractJob {
      */
     @Override
     public void run() throws Exception {
+
+        getLog().info("[sql_job]sysProps:" + sysProps.toString());
+        getLog().info("[sql_job]jobProps:" + jobProps.toString());
+
         //转化任务参数键值对
         try {
             this.resolveProps();
         } catch (Exception var22) {
-            this.handleError("Bad property definition! " + var22.getMessage(), var22);
+            this.handleError("[sql_job]Bad property definition! " + var22.getMessage(), var22);
         }
 
         //执行任务

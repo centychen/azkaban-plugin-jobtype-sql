@@ -6,7 +6,7 @@ import static org.cent.azkaban.plugin.sql.constants.CommonConstants.CUSTOM_PREFI
  * @author: cent
  * @email: 292462859@qq.com
  * @date: 2019/1/22.
- * @description:
+ * @description: 自定义配置参数
  */
 public enum SqlJobPropKeys {
     /**
