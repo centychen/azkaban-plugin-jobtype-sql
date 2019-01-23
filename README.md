@@ -147,6 +147,7 @@ config:
 
 - 6.执行工作流，结果如下图。
 ![](images/quickstart-exec-job-list.png)
+
 ![](images/quickstart-exec-job-detail.png)
 
 ### 占位符参数
