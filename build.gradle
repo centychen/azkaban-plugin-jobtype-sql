@@ -1,5 +1,5 @@
 group 'org.cent'
-version '0.1.0.BETA'
+version '1.0.0.RELEASE'
 
 repositories {
     mavenCentral()

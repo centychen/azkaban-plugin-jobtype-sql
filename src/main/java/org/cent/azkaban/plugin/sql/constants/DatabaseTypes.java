@@ -9,7 +9,13 @@ import org.cent.azkaban.plugin.sql.util.BlankUtil;
  * @description: 数据库类型定义
  */
 public enum DatabaseTypes {
+    /**
+     * Mysql数据库
+     */
     mysql("com.mysql.jdbc.Driver"),
+    /**
+     * Postgresql数据库
+     */
     postgresql("org.postgresql.Driver");
 
     /**
