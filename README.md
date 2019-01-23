@@ -1,9 +1,13 @@
 # Azkaban SQL jobtype
 
-## 功能说明
+## 一、功能说明
+本项目为Azkaban的JobType扩展插件，实现Azkaban直接调度数据库脚本的Job。
 
+适用场景：
+- 原本数据库存在大量定时任务+存储过程进行数据处理的项目，可以通过Azkaban进行改造，实现上下级依赖控制及调度监控，使用该插件改造工作量较小。
+- 对于较小数据量的数据处理，无需用到大数据处理架构，同时数据库负载也不高的，可以使用Azkaban+插件实现数据处理。
 
-## 安装部署
+## 二、安装部署
 - 下载最新发行版本，如：`azkaban-plugin-jobtype-sql-1.0.1.RELEASE.zip`
 
 下载地址：[https://gitee.com/centy/azkaban-plugin-jobtype-sql/releases](https://gitee.com/centy/azkaban-plugin-jobtype-sql/releases)
@@ -23,7 +27,7 @@
 
 - 重启Azkaban完成安装。
 
-## 插件配置参数
+## 三、插件配置参数
 ### Flow参数
 Flow参数可配置在Flow文件内，也可定义在系统环境变量、Azkaban全局参数、Azkaban控制台定义的Flow Parameter等，具体参考Azkaban的配置读取优先级。
 
@@ -47,7 +51,7 @@ Job参数定义在Job节点内，用于配置每个Job的定义。
 --|--
 sql_job.scripts|SQL脚本路径，支持绝对路径和相对路径。相对路径是指SQL文件相对project根目录（即上传至Azkaban的zip压缩包的根目录）的路径。<br>支持多个路径，多个通过英文逗号进行分隔。
 
-## 使用说明
+## 四、使用说明
 **本文示例基于Azkaban Flow 2.0，对于Flow 1.0也支持。**
 
 ### 快速开始
@@ -222,7 +226,7 @@ nodes:
 
 - 3.上传Azkaban执行同上面示例。
 
-## 注意事项
+## 五、注意事项
 - sql解释执行使用ant.jar包，该包不支持"#"号格式的注释，只支持"--"或"//"格式注释。
 - 占位符参数名必须以"sql_job."作为前缀。
 
