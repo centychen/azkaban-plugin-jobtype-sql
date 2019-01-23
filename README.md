@@ -143,11 +143,11 @@ config:
     ```
     
 - 5.将quickstart_example打包成zip包，上传Azkaban的project中，上传成功后如下图。
-[](images/quickstart-project.png)
+![](images/quickstart-project.png)
 
 - 6.执行工作流，结果如下图。
-[](images/quickstart-exec-job-list.png)
-[](images/quickstart-exec-job-detail.png)
+![](images/quickstart-exec-job-list.png)
+![](images/quickstart-exec-job-detail.png)
 
 ### 占位符参数
 本插件实现SQL脚本的占位符替换，实现原理如下：
