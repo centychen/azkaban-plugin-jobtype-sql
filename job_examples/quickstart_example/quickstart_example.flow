@@ -1,0 +1,21 @@
+config: 
+  sql_job.database.type: mysql # 支持mysql、postgresql
+  sql_job.database.driver: com.mysql.jdbc.Driver
+  sql_job.database.host: localhost
+  sql_job.database.port: 3306
+  sql_job.database.database: demo
+  sql_job.database.schema:  # postgresql建议必填
+  sql_job.database.username: root
+  sql_job.database.password: 123456
+
+nodes:
+  - name: create_and_insert_job
+    type: sql_job
+    config:
+      sql_job.scripts: quickstart_example/scripts/create_and_insert.sql # 脚本路径，支持相对路径，使用相对路径时，
+  - name: update_value_job
+    type: sql_job
+    dependsOn:
+    - create_and_insert_job
+    config:
+      sql_job.scripts: quickstart_example/scripts/update_value.sql # 脚本路径
