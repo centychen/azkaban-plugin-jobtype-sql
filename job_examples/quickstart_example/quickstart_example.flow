@@ -12,7 +12,7 @@ nodes:
   - name: create_and_insert_job
     type: sql_job
     config:
-      sql_job.scripts: quickstart_example/scripts/create_and_insert.sql # 脚本路径，支持相对路径，使用相对路径时，
+      sql_job.scripts: quickstart_example/scripts/create_and_insert.sql # 脚本路径
   - name: update_value_job
     type: sql_job
     dependsOn:
